@@ -1,4 +1,3 @@
-// background.js
 
 // This file is currently empty but required for manifest V3 service worker
 
