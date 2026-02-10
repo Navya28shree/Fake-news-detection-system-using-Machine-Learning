@@ -14,9 +14,8 @@ import joblib
 nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
 
-# ---------------------------
 # 1. Text Preprocessing
-# ---------------------------
+
 def clean_text(text):
     text = text.lower()
     text = re.sub(r'http\S+|www\S+|https\S+', '', text)
@@ -25,9 +24,8 @@ def clean_text(text):
     tokens = text.split()
     return " ".join([word for word in tokens if word not in stop_words])
 
-# ---------------------------
 # 2. Load and Prepare Dataset
-# ---------------------------
+
 def load_data():
     true_df = pd.read_csv('True.csv')
     fake_df = pd.read_csv('Fake.csv')
@@ -48,9 +46,8 @@ def load_data():
 
     return df['cleaned'], df['label']
 
-# ---------------------------
 # 3. Neural Network Model
-# ---------------------------
+
 class MLP(nn.Module):
     def __init__(self, input_dim):
         super(MLP, self).__init__()
@@ -68,9 +65,8 @@ class MLP(nn.Module):
         x = self.hidden(x)
         return self.output(x)
 
-# ---------------------------
 # 4. Main Training Function
-# ---------------------------
+
 def train_model():
     print("Loading and preprocessing data...")
     texts, labels = load_data()
@@ -132,10 +128,9 @@ def train_model():
 
     torch.save(model.state_dict(), 'manual_fake_news_model.pth')
     joblib.dump(vectorizer, 'manual_tfidf_vectorizer.pkl')
-    print("✅ Training complete. Model and vectorizer saved.")
+    print(" Training complete. Model and vectorizer saved.")
 
-# ---------------------------
 # Run
-# ---------------------------
+
 if __name__ == "__main__":
     train_model()
