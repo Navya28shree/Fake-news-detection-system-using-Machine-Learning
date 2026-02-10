@@ -1,7 +1,6 @@
 document.getElementById("checkBtn").addEventListener("click", async () => {
   const resultDiv = document.getElementById("result");
 
-  // Execute script in the active tab to get the selected text
   chrome.scripting.executeScript(
     {
       target: { tabId: (await getActiveTabId()) },
@@ -37,7 +36,7 @@ document.getElementById("checkBtn").addEventListener("click", async () => {
         const data = await response.json();
 
         if (response.ok) {
-          // resultDiv.innerHTML = `Prediction: <strong>${data.label}</strong><br>Source: <em>${data.source}</em>`;
+        
           resultDiv.innerHTML = `Prediction: <strong>${data.label}</strong>`;
 
           resultDiv.style.color = data.label === "Real" ? "green" : "red";
